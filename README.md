@@ -11,6 +11,7 @@
 * Login to your AWS account.
 * Create a Notebook in EMR with a Spark cluster. 3 machines m5.xlarge suffice. Make sure the cluster features at least Spark.
 * Copy code from aws_cluster_notebook.ipynb into the notebook window.
+* Fix output_data variable: add your notebooks or your own S3 bucket path!
 * Run the jupyter notebook once the cluster is up.
 
 **To execute on AWS EMR cluster as Script**:
