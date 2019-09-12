@@ -1,8 +1,25 @@
-# Spark ETL pipeline for Sparkify
+# Documentation of a Spark ETL pipeline
 
 ## How to
 
+**To execute locally on test data**:
+* Extract log-data.zip and song_data.zip in data/
+* Create a copy of dl_template.cfg and name it dl_local.cfg. You can leave all values as they are
+* Open and run cells in etl.ipynb notebook
 
+**To execute on AWS EMR cluster as Notebook**:
+* Login to your AWS account.
+* Create a Notebook in EMR with a Spark cluster. 3 machines m5.xlarge suffice. Make sure the cluster features at least Spark.
+* Copy code from aws_cluster_notebook.ipynb into the notebook window.
+* Run the jupyter notebook once the cluster is up.
+
+**To execute on AWS EMR cluster as Script**:
+* Login to your AWS account.
+* Create a Notebook in EMR with a Spark cluster. 3 machines m5.xlarge suffice. Make sure the cluster features at least Spark.
+* Once the cluster is up SSH into your cluster.
+* SCP your project code onto the endpoint node.
+* Create a copy of dl_template.cfg and name it dl.cfg. Adapt your credentials and your paths.
+* Run etl.py. 
 
 ##Purpose
 
@@ -42,6 +59,15 @@ The data is organised in a star schema consisting of the following tables:
 ##Files and ETL process description
 
 **Files**
-* dl_template.cfg
+* *dl_template.cfg* - A template. Create a copy and adapt values for cluster use.
+* *etl.ipynb* - A jupyter notebook for local use.
+* *aws_cluster_notebook.ipynb* - A jupyter notebook for AWS EMR cluster Notebook use.
+* *data/* - Folder containing test data for local use.
+* *etl.py* - A python script for running ETL on a AWS EMR cluster.
+
+**ETL process**
 
 The ETL process has two parts.
+1. process_song_data: song_data is read and song and artist tables are created. The results are writen to parquet files.
+2. process_log_data: log_data that contains songplay event data in rows where page columns has value "NextSong" is read 
+and the tables users, time and songplays are created from the data in the rows. 
